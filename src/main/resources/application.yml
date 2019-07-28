@@ -1,0 +1,68 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      type: org.springframework.jdbc.datasource.DelegatingDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/billing?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
+#      url: jdbc:mysql://localhost:3306/demo?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
+      initial-size: 3
+      max-active: 30
+      min-idle: 3
+      max-wait: 30000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+    initialization-mode: always
+logging:
+  level:
+    root: WARN
+    org:
+      forten: DEBUG
+      hibernate: INFO
+      springframework: INFO
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.demo.dto.mybatis
+#hms:
+#  # 健康数据的参数阀值
+#  # 血糖最小值
+#  hp_blood_sugar_min: 3
+#  # 血糖最大值
+#  hp_blood_sugar_max: 25
+#  #低压最小值
+#  hp_blood_sujer_min: 60
+#  #低压最大值
+#  hp_blood_sujer_max: 110
+#  #高压最小值
+#  hp_high_blood_sujer_min: 95
+#  #高压最大值
+#  hp_high_blood_sujer_max: 190
+#  #  体重最小值
+#  hp_weight_min: 40
+#  #  体重最大值
+#  hp_weight_max: 125
+#
+#  # 系统基础参数
+#  # 默认分页的页容量
+#  default_page_size: 15
+#
+---
+spring:
+  profiles: prod
+  datasource:
+    initialization-mode: never
+
+server:
+  port: 80
+
+---
+spring:
+  profiles: dev
+  datasource:
+    initialization-mode: always
